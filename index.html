@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sitzplan-Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Sitzplan-Manager</h1>
+    <div class="subtitle">Mehrere Tag-Properties · Farbige, ausblendbare Tags</div>
+  </div>
+  <div class="header-right">
+    <div class="subtitle">HTML · CSS · JS</div>
+    <button class="btn-outline" id="theme-toggle-btn" title="Erscheinungsbild wechseln">☀️</button>
+  </div>
+</header>
+
+<main>
+  <!-- Linke Spalte -->
+  <section class="panel" id="students-panel">
+    <div class="panel-title">
+      <span>Tags</span>
+      <span class="small-label" id="tag-count-label">0 Tags</span>
+    </div>
+
+    <div class="row">
+      <div>
+        <input id="tag-name-input" type="text" placeholder="Tag-Name (z.B. kurzsichtig)" style="width:100%;" />
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="prop-frontOnly" />Nur Reihe 1–2</label>
+          <label><input type="checkbox" id="prop-cantShareTable" />Nicht gleicher Tisch</label>
+          <label><input type="checkbox" id="prop-mustWindow" />Nähe Fenster</label>
+          <label><input type="checkbox" id="prop-mustDoor" />Nähe Tür</label>
+          <label><input type="checkbox" id="prop-backOnly" />Nur letzte Reihe</label>
+          <label><input type="checkbox" id="prop-middleOnly" />Nur mittlere Tische</label>
+        </div>
+        <div class="input-row" style="margin-top:4px;">
+          <span class="small-label">Farbe</span>
+          <input type="color" id="tag-color-input" />
+          <button class="btn-outline" id="random-color-btn">Zufällig</button>
+        </div>
+      </div>
+      <div class="tag-add-wrapper">
+        <button class="btn-outline" id="add-tag-btn">Tag+</button>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <input id="tag-search-input" class="search-input" type="text" placeholder="Tags suchen…" />
+    </div>
+
+    <div class="error" id="tag-error"></div>
+    <div class="list" id="tag-list"></div>
+
+    <div class="panel-title" style="margin-top:6px;">
+      <span>Schüler</span>
+      <span class="small-label" id="student-count-label">0 Schüler</span>
+    </div>
+
+    <div class="input-row">
+      <input id="student-name-input" type="text" placeholder="Schülervorname" />
+      <button class="btn-primary" id="add-student-btn">Hinzufügen</button>
+    </div>
+    <div class="input-row">
+      <input id="student-search-input" class="search-input" type="text" placeholder="Schüler suchen…" />
+    </div>
+    <div class="error" id="student-error"></div>
+
+    <!-- FIX: "Schüleredit" entfernt -->
+    <div class="panel-title" style="margin-top:6px;">
+      <label class="toggle">
+        <input type="checkbox" id="toggle-hide-tags" />
+        Tags ausblenden
+      </label>
+    </div>
+    <div class="list" id="student-list"></div>
+  </section>
+
+  <!-- Rechte Spalte -->
+  <section class="panel" id="seating-panel">
+    <div class="panel-title">
+      <span>Raum &amp; Sitzplan</span>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="small-label">Konfiguration</div>
+        <div class="input-row" style="margin-top:4px;">
+          <label class="small-label">Reihen
+            <input id="rows-input" type="number" value="3" min="1" max="10" style="width:60px;margin-left:4px;" />
+          </label>
+          <label class="small-label">Tische je Reihe
+            <input id="tables-input" type="number" value="4" min="1" max="12" style="width:80px;margin-left:4px;" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="seating-controls">
+      <div>
+        <button class="btn-primary" id="generate-btn">Plätze zuweisen</button>
+        <button class="btn-outline" id="reroll-btn">Reroll</button>
+      </div>
+      <div class="hint" id="status-label">Noch kein Sitzplan generiert.</div>
+    </div>
+
+    <div class="save-controls">
+      <span class="small-label">Speichern als</span>
+      <div class="save-buttons-row">
+        <button class="btn-outline" id="save-pdf-btn">📄 PDF</button>
+        <button class="btn-outline" id="save-link-btn">🔗 B-Stundenplan</button>
+      </div>
+    </div>
+
+    <div id="print-info" class="print-only"></div>
+    <div class="tables-container" id="tables-container"></div>
+  </section>
+</main>
+
+<!-- Modal: B-Stundenplan Verknüpfung -->
+<div id="link-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-title">B-Stundenplan speichern</div>
+    <p class="hint" style="margin:0;">
+      Diese Verknüpfung öffnet den Sitzplan mit allen aktuellen Daten.
+      Auf Windows als <strong>.url</strong> speichern und per Doppelklick öffnen.
+    </p>
+    <input id="link-url-display" type="text" readonly class="link-display" />
+    <div class="modal-actions">
+      <button class="btn-outline" id="copy-link-btn">📋 Kopieren</button>
+      <button class="btn-outline" id="close-modal-btn">✕ Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
