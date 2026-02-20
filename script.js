@@ -83,10 +83,6 @@ function addStudent() {
   const name = input.value.trim();
   const errorEl = el("student-error");
   errorEl.textContent = "";
-  if (!name || name.includes(" ")) {
-    errorEl.textContent = "Bitte einen einzelnen Vornamen ohne Leerzeichen eingeben.";
-    return;
-  }
   if (students.some((s) => s.name.toLowerCase() === name.toLowerCase())) {
     errorEl.textContent = "Diesen Vornamen gibt es bereits.";
     return;
